@@ -1,2 +1,0 @@
-
-secret_key= "SOME LONG RANDOM STRING HERE"

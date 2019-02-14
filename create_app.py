@@ -1,3 +1,4 @@
+from models import db
 from flask import Flask, render_template
 
 import config
@@ -5,7 +6,9 @@ import config
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile("config.py")
-    app.secret_key = config.secret_key
+    app.SECRET_KEY = config.SECRET_KEY
+    db.init_app(app)
+
 
 
     @app.route("/")
