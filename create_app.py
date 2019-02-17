@@ -8,17 +8,22 @@ def create_app():
     app.config.from_pyfile("config.py")
     app.SECRET_KEY = config.SECRET_KEY
     db.init_app(app)
+    
 
-
+    @app.before_first_request
+    def init_db():
+        db.create_all()
 
     @app.route("/")
     def home():
-        return render_template("index.html")
+        user=models.create_user(email="robert@pythoncharmers.com",full_name="Robert Layton", password="swordfish")
+        return render_template("index.html",user=user)
 
      #from users import user_blueprint
      #app.register_blueprint(user_blueprint, url_prefix="/users")
 
     return app
+
 
 if __name__ == "__main__":
     import os
