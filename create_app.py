@@ -19,8 +19,8 @@ def create_app():
         user=models.create_user(email="robert@pythoncharmers.com",full_name="Robert Layton", password="swordfish")
         return render_template("index.html",user=user)
 
-     #from users import user_blueprint
-     #app.register_blueprint(user_blueprint, url_prefix="/users")
+    from users import user_blueprint
+    app.register_blueprint(user_blueprint, url_prefix="/users")
 
     return app
 

@@ -38,3 +38,22 @@ def create_user(email, full_name, password, is_admin=False):
     db.session.commit()
     return new_user
 
+class Auction(db.Model):
+    __tablename__="auction"
+
+    auction_id=Column(Integer, primary_key=True)
+    product_name=Column(String(512))
+    product_description=Column(String(512))
+    current_highest_bid=Column(Float, default=0)
+    current_highest_bidder=Column(Integer, ForeignKey("users.user_id"))
+    close_data=Column(DataTime)
+    is_open=Column(Boolean)
+
+    @staticmethod
+    def find_by_id(id_value):
+        return  Auction.query().filter(Auction.auction_id==id_value).one()
+
+    @staticmethod
+    def all():
+        return list(Auction.query().all())
+
